@@ -69,24 +69,13 @@ if ($result && $result->num_rows > 0) {
       <body> 
     <!-- Header -->
     <header class="header">
-        <div class="header-content">
-            <a href="index.php" class="logo">
-                <i class="fas fa-magic"></i> GlamCart
-            </a>
-            
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="shop.php">Shop</a></li>
-                    <?php foreach ($categories as $category): ?>
-                        <li><a href="shop.php?category=<?= $category['category_id'] ?>"><?= htmlspecialchars($category['category_name']) ?></a></li>
-                    <?php endforeach; ?>
-                    <li><a href="about.php">About</a></li>
-                    <li><a href="contact.php">Contact</a></li>
-                </ul>
-            </nav>
-            
-            <div class="header-actions">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar-content">
+                <a href="index.php" class="logo">
+                    <i class="fas fa-magic"></i> GlamCart
+                </a>
+                
                 <!-- Search Bar -->
                 <form class="search-form" action="shop.php" method="GET">
                     <div class="search-container">
@@ -97,8 +86,8 @@ if ($result && $result->num_rows > 0) {
                     </div>
                 </form>
                 
-                <!-- User Actions -->
-                <div class="user-actions">
+                <!-- Top Bar Right Actions -->
+                <div class="top-bar-actions">
                     <?php if (is_logged_in()): ?>
                         <a href="wishlist.php" class="wishlist-icon">
                             <i class="fas fa-heart"></i>
@@ -121,11 +110,26 @@ if ($result && $result->num_rows > 0) {
                     <?php endif; ?>
                 </div>
             </div>
-            
-            <button class="mobile-menu-toggle">
-                <i class="fas fa-bars"></i>
-            </button>
         </div>
+        
+        <!-- Navigation Bar -->
+        <nav class="nav-bar">
+            <div class="nav-content">
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <ul class="nav-menu">
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="shop.php">Shop</a></li>
+                    <?php foreach ($categories as $category): ?>
+                        <li><a href="shop.php?category=<?= $category['category_id'] ?>"><?= htmlspecialchars($category['category_name']) ?></a></li>
+                    <?php endforeach; ?>
+                    <li><a href="about.php">About</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
     </header>
 
     <!-- Main Content -->
