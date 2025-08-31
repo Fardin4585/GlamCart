@@ -120,7 +120,7 @@ if ($result && $result->num_rows > 0) {
                 </button>
                 
                 <ul class="nav-menu">
-                    <li><a href="index.php">Home</a></li>
+                    <li><a href="index.php" class="active">Home</a></li>
                     <li><a href="shop.php">Shop</a></li>
                     <?php foreach ($categories as $category): ?>
                         <li><a href="shop.php?category=<?= $category['category_id'] ?>"><?= htmlspecialchars($category['category_name']) ?></a></li>

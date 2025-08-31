@@ -205,9 +205,9 @@ if ($result && $result->num_rows > 0) {
                 
                 <ul class="nav-menu">
                     <li><a href="index.php">Home</a></li>
-                    <li><a href="shop.php" class="active">Shop</a></li>
+                    <li><a href="shop.php" <?= ($category_id == 0 && empty($search)) ? 'class="active"' : '' ?>>Shop</a></li>
                     <?php foreach ($categories as $category): ?>
-                        <li><a href="shop.php?category=<?= $category['category_id'] ?>"><?= htmlspecialchars($category['category_name']) ?></a></li>
+                        <li><a href="shop.php?category=<?= $category['category_id'] ?>" <?= ($category_id == $category['category_id']) ? 'class="active"' : '' ?>><?= htmlspecialchars($category['category_name']) ?></a></li>
                     <?php endforeach; ?>
                     <li><a href="about.php">About</a></li>
                     <li><a href="contact.php">Contact</a></li>
