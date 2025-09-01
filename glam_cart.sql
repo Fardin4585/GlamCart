@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 31, 2025 at 10:11 PM
+-- Generation Time: Sep 01, 2025 at 08:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -138,6 +138,31 @@ INSERT INTO `category` (`Category_id`, `Category_Name`, `Category_entry_date`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `contact_messages`
+--
+
+CREATE TABLE `contact_messages` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `status` enum('unread','read','replied') DEFAULT 'unread',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `contact_messages`
+--
+
+INSERT INTO `contact_messages` (`id`, `name`, `email`, `subject`, `message`, `status`, `created_at`, `updated_at`) VALUES
+(2, 'Jane Smith', 'jane@example.com', 'Order Support', 'I have a question about my recent order.', 'read', '2025-09-01 04:22:54', '2025-09-01 04:23:49'),
+(3, 'fardin', 'test@gmail.com', 'General Inquiry', 'asdfsdfggerg', 'unread', '2025-09-01 04:23:24', '2025-09-01 04:23:24');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `discounts`
 --
 
@@ -163,6 +188,13 @@ CREATE TABLE `orders` (
   `total_amount` decimal(10,2) NOT NULL,
   `status` enum('pending','processing','shipped','delivered','cancelled') DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `user_id`, `order_date`, `total_amount`, `status`) VALUES
+(1, 6, '2025-09-01 03:06:15', 52.43, 'pending');
 
 -- --------------------------------------------------------
 
@@ -241,7 +273,8 @@ INSERT INTO `spend_product` (`spend_product_id`, `spend_product_name`, `spend_pr
 (6, 2, 5, '2025-07-17'),
 (7, 2, 5, '2025-07-17'),
 (8, 2, 5, '2025-07-17'),
-(9, 4, 5, '');
+(9, 4, 5, ''),
+(10, 6, 1, '2025-09-01');
 
 -- --------------------------------------------------------
 
@@ -352,6 +385,12 @@ ALTER TABLE `category`
   ADD PRIMARY KEY (`Category_id`);
 
 --
+-- Indexes for table `contact_messages`
+--
+ALTER TABLE `contact_messages`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `discounts`
 --
 ALTER TABLE `discounts`
@@ -431,13 +470,19 @@ ALTER TABLE `brand`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
   MODIFY `Category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `contact_messages`
+--
+ALTER TABLE `contact_messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `discounts`
@@ -449,7 +494,7 @@ ALTER TABLE `discounts`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `order_items`
@@ -467,7 +512,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `spend_product`
 --
 ALTER TABLE `spend_product`
-  MODIFY `spend_product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `spend_product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `store_product`
