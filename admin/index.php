@@ -65,6 +65,26 @@ if ($result && $result->num_rows > 0) {
         $recent_products[] = $row;
     }
 }
+
+// Total contact messages
+$sql = "SELECT COUNT(*) as total FROM contact_messages";
+$result = $conn->query($sql);
+$stats['total_messages'] = $result ? $result->fetch_assoc()['total'] : 0;
+
+// Unread contact messages
+$sql = "SELECT COUNT(*) as total FROM contact_messages WHERE status = 'unread'";
+$result = $conn->query($sql);
+$stats['unread_messages'] = $result ? $result->fetch_assoc()['total'] : 0;
+
+// Recent contact messages
+$recent_messages = [];
+$sql = "SELECT * FROM contact_messages ORDER BY created_at DESC LIMIT 5";
+$result = $conn->query($sql);
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $recent_messages[] = $row;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -186,6 +206,7 @@ if ($result && $result->num_rows > 0) {
                     <li><a href="brands.php"><i class="fas fa-copyright"></i> Brands</a></li>
                     <li><a href="users.php"><i class="fas fa-users"></i> Users</a></li>
                     <li><a href="orders.php"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                    <li><a href="contact_messages.php"><i class="fas fa-envelope"></i> Contact Messages</a></li>
                     <?php if (has_admin_permission('manage_admins')): ?>
                     <li><a href="manage_admins.php"><i class="fas fa-user-shield"></i> Manage Admins</a></li>
                     <?php endif; ?>
@@ -224,6 +245,9 @@ if ($result && $result->num_rows > 0) {
                     <a href="brands.php" class="btn btn-dark">
                         <i class="fas fa-copyright"></i> Brands
                     </a>
+                    <a href="contact_messages.php" class="btn btn-info">
+                        <i class="fas fa-envelope"></i> Contact Messages
+                    </a>
                     <?php if (has_admin_permission('manage_admins')): ?>
                     <a href="manage_admins.php" class="btn btn-danger">
                         <i class="fas fa-user-shield"></i> Manage Admins
@@ -250,6 +274,12 @@ if ($result && $result->num_rows > 0) {
                     <h3><i class="fas fa-shopping-cart"></i> Total Orders</h3>
                     <div class="stat-number"><?= $stats['total_orders'] ?></div>
                     <p>Orders placed</p>
+                </div>
+                
+                <div class="stat-card">
+                    <h3><i class="fas fa-envelope"></i> Contact Messages</h3>
+                    <div class="stat-number"><?= $stats['total_messages'] ?></div>
+                    <p><?= $stats['unread_messages'] ?> unread</p>
                 </div>
             </div>
             
@@ -316,6 +346,52 @@ if ($result && $result->num_rows > 0) {
                 </div>
                 <?php else: ?>
                 <p>No products added yet</p>
+                <?php endif; ?>
+            </div>
+            
+            <!-- Recent Contact Messages -->
+            <div class="recent-section">
+                <h3><i class="fas fa-envelope"></i> Recent Contact Messages</h3>
+                <?php if (!empty($recent_messages)): ?>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Subject</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($recent_messages as $msg): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($msg['name']) ?></td>
+                                <td><?= htmlspecialchars($msg['email']) ?></td>
+                                <td><?= htmlspecialchars($msg['subject']) ?></td>
+                                <td>
+                                    <span class="badge badge-<?= $msg['status'] === 'unread' ? 'warning' : ($msg['status'] === 'read' ? 'info' : 'success') ?>">
+                                        <?= ucfirst($msg['status']) ?>
+                                    </span>
+                                </td>
+                                <td><?= date('M j, Y', strtotime($msg['created_at'])) ?></td>
+                                <td>
+                                    <a href="contact_messages.php?id=<?= $msg['id'] ?>" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-eye"></i> View
+                                    </a>
+                                    <a href="contact_messages.php?action=mark_read&id=<?= $msg['id'] ?>" class="btn btn-sm btn-info">
+                                        <i class="fas fa-check"></i> Mark Read
+                                    </a>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <?php else: ?>
+                <p>No contact messages yet</p>
                 <?php endif; ?>
             </div>
         </main>

@@ -195,16 +195,16 @@ if ($categories_result) {
                         <div class="member-avatar">
                             <i class="fas fa-user-circle"></i>
                         </div>
-                        <h4>Sarah Johnson</h4>
+                        <h4>Fardin Khan</h4>
                         <p class="member-role">Founder & CEO</p>
-                        <p>Beauty enthusiast with 15+ years in the cosmetics industry</p>
+                        <p>Full Stack Developer blending front-end creativity with back-end efficiency</p>
                     </div>
                     
                     <div class="team-member">
                         <div class="member-avatar">
                             <i class="fas fa-user-circle"></i>
                         </div>
-                        <h4>Michael Chen</h4>
+                        <h4>Sakia Ananna</h4>
                         <p class="member-role">Head of Operations</p>
                         <p>Expert in supply chain management and customer experience</p>
                     </div>

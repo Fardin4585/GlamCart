@@ -35,13 +35,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = 'Please enter a valid email address.';
         $message_type = 'error';
     } else {
-        // In a real application, you would send an email or save to database
-        // For now, we'll just show a success message
-        $message = 'Thank you for your message! We will get back to you soon.';
-        $message_type = 'success';
+        // Save the contact message to database
+        $sql = "INSERT INTO contact_messages (name, email, subject, message, created_at) VALUES (?, ?, ?, ?, NOW())";
+        $stmt = $conn->prepare($sql);
         
-        // Clear form data
-        $name = $email = $subject = $message_text = '';
+        if ($stmt) {
+            $stmt->bind_param("ssss", $name, $email, $subject, $message_text);
+            
+            if ($stmt->execute()) {
+                $message = 'Thank you for your message! We will get back to you soon.';
+                $message_type = 'success';
+                
+                // Clear form data
+                $name = $email = $subject = $message_text = '';
+            } else {
+                $message = 'Sorry, there was an error sending your message. Please try again.';
+                $message_type = 'error';
+            }
+            $stmt->close();
+        } else {
+            $message = 'Sorry, there was an error sending your message. Please try again.';
+            $message_type = 'error';
+        }
     }
 }
 ?>
@@ -138,7 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <h3>Visit Us</h3>
-                        <p>123 Beauty Street<br>Makeup City, MC 12345<br>United States</p>
+                        <p>Bashundhara Residential Area, Dhaka-1229<br>Plot # 15, Block B<br>Bangladesh</p>
                     </div>
                     
                     <div class="contact-card">
