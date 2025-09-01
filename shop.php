@@ -226,83 +226,83 @@ if ($result && $result->num_rows > 0) {
 
         <!-- Filters and Products -->
         <div class="shop-container">
-            <!-- Filters Sidebar -->
-            <aside class="filters-sidebar">
-                <div class="filters card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-filter"></i> Filters</h3>
-                        <button class="btn btn-sm btn-secondary" onclick="clearFilters()">Clear All</button>
+            <!-- Filters Bar -->
+            <div class="filters-bar">
+                <button class="filters-toggle" onclick="toggleFilters()">
+                    <i class="fas fa-filter"></i> Filters
+                </button>
+                
+                <form class="filters-form" method="GET" action="shop.php">
+                    <!-- Search -->
+                    <div class="filter-group">
+                        <label>Search</label>
+                        <input type="text" name="search" class="filter-input" 
+                               value="<?= htmlspecialchars($search) ?>" placeholder="Search products...">
                     </div>
                     
-                    <div class="card-body">
-                        <form class="filter-form" method="GET" action="shop.php">
-                            <!-- Search -->
-                            <div class="filter-group">
-                                <label class="form-label">Search</label>
-                                <input type="text" name="search" class="form-control filter-input" 
-                                       value="<?= htmlspecialchars($search) ?>" placeholder="Search products...">
-                            </div>
-                            
-                            <!-- Category Filter -->
-                            <div class="filter-group">
-                                <label class="form-label">Category</label>
-                                <select name="category" class="form-select filter-input">
-                                    <option value="">All Categories</option>
-                                    <?php foreach ($categories as $category): ?>
-                                        <option value="<?= $category['category_id'] ?>" 
-                                                <?= $category_id == $category['category_id'] ? 'selected' : '' ?>>
-                                            <?= htmlspecialchars($category['category_name']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            
-                            <!-- Brand Filter -->
-                            <div class="filter-group">
-                                <label class="form-label">Brand</label>
-                                <select name="brand" class="form-select filter-input">
-                                    <option value="">All Brands</option>
-                                    <?php foreach ($brands as $brand): ?>
-                                        <option value="<?= $brand['brand_id'] ?>" 
-                                                <?= $brand_id == $brand['brand_id'] ? 'selected' : '' ?>>
-                                            <?= htmlspecialchars($brand['brand_name']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            
-                            <!-- Price Range -->
-                            <div class="filter-group">
-                                <label class="form-label">Price Range</label>
-                                <div class="price-range">
-                                    <input type="number" name="min_price" class="form-control filter-input" 
-                                           placeholder="Min" value="<?= $min_price > 0 ? $min_price : '' ?>" step="0.01">
-                                    <span>to</span>
-                                    <input type="number" name="max_price" class="form-control filter-input" 
-                                           placeholder="Max" value="<?= $max_price > 0 ? $max_price : '' ?>" step="0.01">
-                                </div>
-                            </div>
-                            
-                            <!-- Sort -->
-                            <div class="filter-group">
-                                <label class="form-label">Sort By</label>
-                                <select name="sort" class="form-select filter-input">
-                                    <option value="name_asc" <?= $sort === 'name_asc' ? 'selected' : '' ?>>Name A-Z</option>
-                                    <option value="name_desc" <?= $sort === 'name_desc' ? 'selected' : '' ?>>Name Z-A</option>
-                                    <option value="price_asc" <?= $sort === 'price_asc' ? 'selected' : '' ?>>Price Low to High</option>
-                                    <option value="price_desc" <?= $sort === 'price_desc' ? 'selected' : '' ?>>Price High to Low</option>
-                                    <option value="newest" <?= $sort === 'newest' ? 'selected' : '' ?>>Newest First</option>
-                                    <option value="oldest" <?= $sort === 'oldest' ? 'selected' : '' ?>>Oldest First</option>
-                                </select>
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary" style="width: 100%;">
-                                <i class="fas fa-search"></i> Apply Filters
-                            </button>
-                        </form>
+                    <!-- Category Filter -->
+                    <div class="filter-group">
+                        <label>Category</label>
+                        <select name="category" class="filter-input">
+                            <option value="">All Categories</option>
+                            <?php foreach ($categories as $category): ?>
+                                <option value="<?= $category['category_id'] ?>" 
+                                        <?= $category_id == $category['category_id'] ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($category['category_name']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
-                </div>
-            </aside>
+                    
+                    <!-- Brand Filter -->
+                    <div class="filter-group">
+                        <label>Brand</label>
+                        <select name="brand" class="filter-input">
+                            <option value="">All Brands</option>
+                            <?php foreach ($brands as $brand): ?>
+                                <option value="<?= $brand['brand_id'] ?>" 
+                                        <?= $brand_id == $brand['brand_id'] ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($brand['brand_name']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    
+                    <!-- Price Range -->
+                    <div class="filter-group">
+                        <label>Price Range</label>
+                        <div class="price-range">
+                            <input type="number" name="min_price" class="filter-input" 
+                                   placeholder="Min" value="<?= $min_price > 0 ? $min_price : '' ?>" step="0.01">
+                            <span>to</span>
+                            <input type="number" name="max_price" class="filter-input" 
+                                   placeholder="Max" value="<?= $max_price > 0 ? $max_price : '' ?>" step="0.01">
+                        </div>
+                    </div>
+                    
+                    <!-- Sort -->
+                    <div class="filter-group">
+                        <label>Sort By</label>
+                        <select name="sort" class="filter-input">
+                            <option value="name_asc" <?= $sort === 'name_asc' ? 'selected' : '' ?>>Name A-Z</option>
+                            <option value="name_desc" <?= $sort === 'name_desc' ? 'selected' : '' ?>>Name Z-A</option>
+                            <option value="price_asc" <?= $sort === 'price_asc' ? 'selected' : '' ?>>Price Low to High</option>
+                            <option value="price_desc" <?= $sort === 'price_desc' ? 'selected' : '' ?>>Price High to Low</option>
+                            <option value="newest" <?= $sort === 'newest' ? 'selected' : '' ?>>Newest First</option>
+                            <option value="oldest" <?= $sort === 'oldest' ? 'selected' : '' ?>>Oldest First</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filters-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search"></i> Apply
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="clearFilters()">
+                            Clear All
+                        </button>
+                    </div>
+                </form>
+            </div>
 
             <!-- Products Section -->
             <section class="products-section">
@@ -488,13 +488,19 @@ if ($result && $result->num_rows > 0) {
         // Auto-apply filters on change
         document.querySelectorAll('.filter-input').forEach(input => {
             input.addEventListener('change', function() {
-                document.querySelector('.filter-form').submit();
+                document.querySelector('.filters-form').submit();
             });
         });
         
         // Clear filters function
         function clearFilters() {
             window.location.href = 'shop.php';
+        }
+        
+        // Toggle filters function
+        function toggleFilters() {
+            const filtersForm = document.querySelector('.filters-form');
+            filtersForm.classList.toggle('active');
         }
         
         // View toggle functionality
