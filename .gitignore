@@ -1,2 +1,37 @@
-.env 
-.env 
+# Environment variables
+.env
+
+# Logs
+*.log
+logs/
+
+# Cache
+cache/
+tmp/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Composer (if using)
+vendor/
+composer.lock
+
+# Node modules (if using)
+node_modules/
+npm-debug.log
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Sensitive files
+config/secrets.php
+config/local.php

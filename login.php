@@ -166,11 +166,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                     
                     <div class="social-login">
-                        <button class="btn btn-secondary" style="width: 100%; margin-bottom: 1rem;">
+                        <a href="google_login.php" class="btn btn-secondary" style="width: 100%; margin-bottom: 1rem; text-decoration: none; display: inline-block;">
                             <i class="fab fa-google"></i> Continue with Google
-                        </button>
-                        <button class="btn btn-secondary" style="width: 100%;">
-                            <i class="fab fa-facebook"></i> Continue with Facebook
+                        </a>
+                        <button class="btn btn-secondary" style="width: 100%;" disabled>
+                            <i class="fab fa-facebook"></i> Continue with Facebook (Coming Soon)
                         </button>
                     </div>
                 </div>
