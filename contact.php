@@ -76,40 +76,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- Top Bar -->
         <div class="top-bar">
             <div class="top-bar-content">
-                <a href="index.php" class="logo">GlamCart</a>
+                <a href="index.php" class="logo">
+                    <i class="fas fa-magic"></i> GlamCart
+                </a>
                 
-                <form class="search-form" method="GET" action="shop.php">
-                    <input type="text" name="search" class="search-input" placeholder="Search for products..." value="">
-                    <button type="submit" class="search-btn">
-                        <i class="fas fa-search"></i>
-                    </button>
+                <!-- Search Bar -->
+                <form class="search-form" action="shop.php" method="GET">
+                    <div class="search-container">
+                        <input type="text" name="search" class="search-input" placeholder="Search products...">
+                        <button type="submit" class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
                 </form>
                 
+                <!-- Top Bar Right Actions -->
                 <div class="top-bar-actions">
-                    <a href="wishlist.php" class="wishlist-icon">
-                        <i class="fas fa-heart"></i>
-                        <?php if (is_logged_in()): ?>
-                            <span class="wishlist-count"><?= getWishlistCountFromDB() ?></span>
-                        <?php endif; ?>
-                    </a>
-                    
-                    <a href="cart.php" class="cart-icon">
-                        <i class="fas fa-shopping-cart"></i>
-                        <?php if (is_logged_in()): ?>
-                            <span class="cart-count"><?= getCartCountFromDB() ?></span>
-                        <?php endif; ?>
-                    </a>
-                    
                     <?php if (is_logged_in()): ?>
+                        <a href="wishlist.php" class="wishlist-icon">
+                            <i class="fas fa-heart"></i>
+                            <span class="wishlist-count"><?= isset($_SESSION['user_id']) ? getWishlistCountFromDB() : '0' ?></span>
+                        </a>
+                        <a href="cart.php" class="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count"><?= isset($_SESSION['user_id']) ? getCartCountFromDB() : '0' ?></span>
+                        </a>
                         <div class="user-menu">
-                            <a href="profile.php" class="username-link"><?= htmlspecialchars($_SESSION['username'] ?? $_SESSION['user_f_name'] ?? 'User') ?></a>
+                            <a href="dashboard.php" class="username-link">
+                                <i class="fas fa-user"></i>
+                                <?= htmlspecialchars($_SESSION['user_f_name']) ?>
+                            </a>
                             <a href="logout.php" class="logout-link">Logout</a>
                         </div>
                     <?php else: ?>
-                        <div class="user-menu">
-                            <a href="login.php" class="username-link">Login</a>
-                            <a href="register.php" class="logout-link">Register</a>
-                        </div>
+                        <a href="login.php" class="btn btn-secondary btn-sm">Login</a>
+                        <a href="register.php" class="btn btn-primary btn-sm">Register</a>
                     <?php endif; ?>
                 </div>
             </div>
@@ -123,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </button>
                 
                 <ul class="nav-menu">
-                    <li><a href="index.php">Home</a></li>
+                    <li><a href="index.php" >Home</a></li>
                     <li><a href="shop.php">Shop</a></li>
                     <?php foreach ($categories as $category): ?>
                         <li><a href="shop.php?category=<?= $category['category_id'] ?>"><?= htmlspecialchars($category['category_name']) ?></a></li>
