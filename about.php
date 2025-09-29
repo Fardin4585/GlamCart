@@ -6,7 +6,6 @@
 
 require_once 'connection.php';
 require_once 'my_function.php';
-session_start();
 
 // Get categories for navigation with proper aliases
 $categories_query = "SELECT Category_ID AS category_id, Category_Name AS category_name FROM category ORDER BY Category_Name";

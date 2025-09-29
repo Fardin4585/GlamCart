@@ -6,7 +6,6 @@
 
 require_once 'connection.php';
 require_once 'google_config.php';
-session_start();
 
 // Check if user is already logged in
 if (is_logged_in()) {

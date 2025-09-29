@@ -5,7 +5,6 @@
  */
 
 require_once 'connection.php';
-session_start();
 
 // If already logged in as admin, redirect to admin panel
 if (is_logged_in() && is_admin()) {
@@ -48,6 +47,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['admin_role'] = $user['admin_role'];
                 $_SESSION['admin_name'] = $user['user_f_name'] . ' ' . $user['user_l_name'];
                 $_SESSION['user_role'] = 'admin';
+                
+                // Handle "Remember Me" functionality
+                $remember = isset($_POST['remember']) && $_POST['remember'] === 'on';
+                if ($remember) {
+                    // Set session cookie to expire in 30 days
+                    setcookie(session_name(), session_id(), time() + (86400 * 30), '/');
+                }
                 
                 // Log admin login
                 log_admin_action('admin_login', 'users', $user['user_id']);
@@ -129,6 +135,23 @@ if (isset($_GET['message']) && $_GET['message'] === 'logged_out') {
         .back-to-site a:hover {
             text-decoration: underline;
         }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .checkbox-label input[type="checkbox"] {
+            margin-right: 0.5rem;
+            transform: scale(1.2);
+        }
+        
+        .checkmark {
+            margin-left: 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -183,6 +206,14 @@ if (isset($_GET['message']) && $_GET['message'] === 'logged_out') {
                             <i class="fas fa-eye"></i>
                         </button>
                     </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="remember" id="remember">
+                        <span class="checkmark"></span>
+                        Remember me
+                    </label>
                 </div>
                 
                 <div class="form-group">

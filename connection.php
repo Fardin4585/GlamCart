@@ -4,6 +4,9 @@
  * GlamCart - Makeup and Cosmetics Shop Management System
  */
 
+// Load session configuration for persistent login
+require_once 'session_config.php';
+
 // Database configuration
 $hostname = 'localhost';
 $username = 'root';

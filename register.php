@@ -5,7 +5,6 @@
  */
 
 require_once 'connection.php';
-session_start();
 
 $error_message = '';
 $success_message = '';

@@ -5,7 +5,6 @@
  */
 
 require_once '../connection.php';
-session_start();
 
 // Check if user is logged in and is admin
 if (!is_logged_in()) {

@@ -5,7 +5,6 @@
  */
 
 require_once 'connection.php';
-session_start();
 
 // Log the logout action if user is logged in and is admin
 if (is_logged_in() && is_admin()) {

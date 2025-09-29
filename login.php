@@ -5,7 +5,6 @@
  */
 
 require_once 'connection.php';
-session_start();
 
 $error_message = '';
 $success_message = '';
@@ -47,6 +46,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['user_l_name'] = $user['user_l_name'];
                 $_SESSION['user_email'] = $user['user_email'];
                 $_SESSION['user_role'] = 'customer'; // Default to customer since no role field exists
+                
+                // Handle "Remember Me" functionality
+                $remember = isset($_POST['remember']) && $_POST['remember'] === 'on';
+                if ($remember) {
+                    // Set session cookie to expire in 30 days
+                    setcookie(session_name(), session_id(), time() + (86400 * 30), '/');
+                }
                 
                 // Log successful login (only for admin users)
                 if (is_admin()) {

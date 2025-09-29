@@ -6,7 +6,6 @@
 
 require_once 'connection.php';
 require_once 'google_config.php';
-session_start();
 
 // Check if Google OAuth is properly configured
 if (GOOGLE_CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID' || GOOGLE_CLIENT_SECRET === 'YOUR_GOOGLE_CLIENT_SECRET') {

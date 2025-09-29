@@ -5,7 +5,6 @@
  */
 
 require_once 'connection.php';
-session_start();
 
 // Get filter parameters
 $search = sanitize_input($_GET['search'] ?? '');

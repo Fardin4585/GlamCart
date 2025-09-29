@@ -5,7 +5,6 @@
  */
 
 require_once 'connection.php';
-session_start();
 
 echo "<h1>GlamCart Admin Access Test</h1>";
 

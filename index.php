@@ -5,7 +5,6 @@
  */
 
 require_once 'connection.php';
-  session_start();
 
 // Get featured products
 $featured_products = [];
